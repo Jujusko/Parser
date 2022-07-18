@@ -31,7 +31,7 @@ namespace A2TZ
             int amountOfPages = GetAmountOfPages(pagination);
 
             DataTransferService dataTransferService = new DataTransferService();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < amountOfPages; i++)
             {
                 var b = driver.FindElement(By.CssSelector(XPaths.Data));
                 var qw = b.Text;

@@ -19,14 +19,14 @@ namespace BLL.Services
 
             UserDTO buyerDB;
             if (tranz.BuyerName.Contains("Физическое лицо"))
-                buyerDB = userRepository.GetUserByName("Физическое лицо\r");
+                buyerDB = userRepository.GetUserByName("Физическое лицо");
             else
                 buyerDB = userRepository.GetUserByINN(tranz.BuyerINN);
 
             UserDTO sellerDB = userRepository.GetUserByINN(tranz.SellerINN);
 
 
-            if (buyerDB is null)
+            if (buyerDB is null || buyerDB.INN != tranz.BuyerINN)
             {
                 UserDTO newBuyer = new UserDTO();
                 newBuyer.INN = tranz.BuyerINN;
@@ -37,7 +37,7 @@ namespace BLL.Services
             else
                 newTranzIntoDB.BuyerId = buyerDB.Id;
 
-            if (sellerDB is null)
+            if (sellerDB is null || sellerDB.INN != tranz.SellerINN)
             {
                 UserDTO newSeller = new UserDTO();
                 newSeller.INN = tranz.SellerINN;
@@ -49,6 +49,10 @@ namespace BLL.Services
                 newTranzIntoDB.SellerId = sellerDB.Id;
 
             return newTranzIntoDB;
+        }
+        private string CutRSymb(string str)
+        {
+            return str.Replace('\r', '\0');
         }
         public void SortData(string[] pageData)
         {
@@ -68,31 +72,31 @@ namespace BLL.Services
                 if (rowsInLine == 0)
                 {
                     newTranz = new TranzactionModel();
-                    newTranz.Declaration = pageData[i];
+                    newTranz.Declaration = CutRSymb(pageData[i]);
                 }
 
                 if (rowsInLine == 1)
-                    newTranz.SellerName = pageData[i];
+                    newTranz.SellerName = CutRSymb(pageData[i]);
 
                 if (rowsInLine == 2)
-                    newTranz.SellerINN = pageData[i];
+                    newTranz.SellerINN = CutRSymb(pageData[i]);
 
                 if (rowsInLine == 3)
-                    newTranz.BuyerName = pageData[i];
+                    newTranz.BuyerName = CutRSymb(pageData[i]);
 
                 if (rowsInLine == 4)
                 {
                     if (newTranz.BuyerName.Contains("Физическое лицо"))
                         rowsInLine++;
                     else
-                        newTranz.BuyerINN = pageData[i];
+                        newTranz.BuyerINN = CutRSymb(pageData[i]);
                 }
 
                 if (rowsInLine == 5)
-                    newTranz.Date = pageData[i];
+                    newTranz.Date = CutRSymb(pageData[i]);
 
                 if (rowsInLine == 6)
-                    newTranz.Value = pageData[i];
+                    newTranz.Value = CutRSymb(pageData[i]);
 
                 rowsInLine++;
             }

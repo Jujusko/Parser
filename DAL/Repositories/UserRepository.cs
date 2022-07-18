@@ -17,7 +17,7 @@ namespace DAL.Repositories
             UserDTO user;
             using (SqlConnection connection = new SqlConnection(Queries.ConnectionString)) 
             {
-                user = connection.QuerySingleOrDefault<UserDTO>(Queries.GetUserByINN, new { inn }
+                user = connection.QueryFirstOrDefault<UserDTO>(Queries.GetUserByINN, new { inn }
                , commandType: CommandType.StoredProcedure);
             }
             return user;
@@ -28,7 +28,7 @@ namespace DAL.Repositories
             UserDTO user;
             using (SqlConnection connection = new SqlConnection(Queries.ConnectionString))
             {
-                user = connection.QuerySingleOrDefault<UserDTO>(Queries.GetUserByName, new { name = name }
+                user = connection.QueryFirstOrDefault<UserDTO>(Queries.GetUserByName, new { name = name }
                , commandType: CommandType.StoredProcedure);
             }
             return user;

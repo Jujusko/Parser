@@ -11,7 +11,10 @@ namespace BLL.Services
         public TranzactionDTO BuildDTOTranz(TranzactionModel tranz)
         {
             UserRepository userRepository = new UserRepository();
-            TranzactionDTO newTranzIntoDB = CustomMapper.GetInstance().Map<TranzactionDTO>(tranz);
+            TranzactionDTO newTranzIntoDB = new TranzactionDTO();
+            newTranzIntoDB.Declaration = tranz.Declaration;
+            newTranzIntoDB.Date = tranz.Date;
+            newTranzIntoDB.Value = tranz.Value;
 
             UserDTO buyerDB;
             if (tranz.BuyerName.Contains("Физическое лицо"))

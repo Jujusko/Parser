@@ -49,8 +49,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TranzactionModel.cs" />
-    <Compile Include="UserModel.cs" />
     <Compile Include="XPaths.cs" />
   </ItemGroup>
   <ItemGroup>
